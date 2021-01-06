@@ -1,0 +1,18 @@
+---
+- name: working with the web1
+  hosts: web1
+  vars:
+    author: "Akhil Ambekar"
+  become: yes
+  tasks:
+    - name: Install NgInx
+      yum: name=nginx state=latest
+    - name: Start NgInx on boot
+      service:
+        name: nginx
+        enabled: yes
+        state: started
+    - name: Copy index.html.j2 to the system directory
+      template:
+        src: ./index.html.j2
+        dest: /usr/share/nginx/html/index.html
